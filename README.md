@@ -8,12 +8,13 @@ This project is meticulously crafted to cover every facet of Android development
 
 ## Features
 
-- Moduliraztion
+- Modularization
 - MVVM Architecture
 - Jetpack Compose
 - Navigation Component
 
-
+<br/>
+<br/>
 
 > **_NOTE:_**  We will be discussing every topic of Android SDK in terms of [Android Jetpack](https://developer.android.com/jetpack).
 
@@ -61,6 +62,24 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 
 
 
+
+
+### Modularization
+
+> **_Note:_** Modularization is a practice of organizing a codebase into loosely coupled and self contained parts. Each part is a module. 
+> Each module is independent and serves a clear purpose. By dividing a problem into smaller and easier to solve subproblems, 
+> you reduce the complexity of designing and maintaining a large system.
+
+
+![Sample dependency graph](https://developer.android.com/static/topic/modularization/images/1_sample_dep_graph.png)
+
+#### Benefits of modularization 
+
+|            Benefit            |                                                                                               Summary                                                                                                |
+|:-----------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|          Reusability          |     Modularization allows code sharing and creating multiple apps from one foundation. Apps are composed of separate feature modules, each potentially enabled or disabled based on app variants     |
+|   Strict visibiliy control    |                            Modules provide control over code exposure, allowing marking internal details to prevent external usage, while maintaining a public interface.                            |
+|     Customizable delivery     |                   [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) utilizes app bundles to deliver app features conditionally or on demand.                    |
 
 
 ## Authors

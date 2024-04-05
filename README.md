@@ -85,7 +85,6 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 |       Encapsulation        |                          each part of your code should have the smallest possible amount of knowledge about other parts so that ir is easier to read and understand.                           |
 |        Testability         |                                                           A testable code is one where components can be easily tested in isolation.                                                           | 
 |         Build time         |               incremental build, build cache or parallel build, can leverage modularity to [improve build performance](https://developer.android.com/build/optimize-your-build).               |
-| :------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ## Authors
 

@@ -75,12 +75,17 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 
 #### Benefits of modularization 
 
-|            Benefit            |                                                                                               Summary                                                                                                |
-|:-----------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|          Reusability          |     Modularization allows code sharing and creating multiple apps from one foundation. Apps are composed of separate feature modules, each potentially enabled or disabled based on app variants     |
-|   Strict visibiliy control    |                            Modules provide control over code exposure, allowing marking internal details to prevent external usage, while maintaining a public interface.                            |
-|     Customizable delivery     |                   [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) utilizes app bundles to deliver app features conditionally or on demand.                    |
-
+|          Benefit           |                                                                                            Summary                                                                                             |
+|:--------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|        Reliability         |  Modularization allows code sharing and creating multiple apps from one foundation. Apps are composed of separate feature modules, each potentially enabled or disabled based on app variants  |
+| Strict visibility control  |                         Modules provide control over code exposure, allowing marking internal details to prevent external usage, while maintaining a public interface.                         |
+|   Customizable delivery    |                [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery) utilizes app bundles to deliver app features conditionally or on demand.                 |
+|        Scalability         |                                       A properly modularized project will embrace the separation of concerns principle and therefore limit the coupling                                        | 
+|         Ownership          |                               A module can have a dedicated owner who is responsible for maintaining the code, fixing bugs, adding tests, and reviewing changes.                               |
+|       Encapsulation        |                          each part of your code should have the smallest possible amount of knowledge about other parts so that ir is easier to read and understand.                           |
+|        Testability         |                                                           A testable code is one where components can be easily tested in isolation.                                                           | 
+|         Build time         |               incremental build, build cache or parallel build, can leverage modularity to [improve build performance](https://developer.android.com/build/optimize-your-build).               |
+| :------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ## Authors
 

@@ -121,22 +121,22 @@ it does not compile every time app is started.
 
 These are the general steps that happen when we press Run button:
 
-    1. Gradle reads the app’s build configuration file (build.gradle) which contains information about the dependencies, build types, etc.
-    2. Gradle downloads and resolves the app’s dependencies.
-    3. Gradle compiles the app’s code, which includes converting the Java or Kotlin code into bytecode.
-    4. After that, Gradle packs the compiled code and resources into an APK file.
-    5. Finally, Gradle installs the APK file on the device or emulator and runs the app.
+1. Gradle reads the app’s build configuration file (build.gradle) which contains information about the dependencies, build types, etc.
+2. Gradle downloads and resolves the app’s dependencies.
+3. Gradle compiles the app’s code, which includes converting the Java or Kotlin code into bytecode.
+4. After that, Gradle packs the compiled code and resources into an APK file.
+5. Finally, Gradle installs the APK file on the device or emulator and runs the app.
 
 > It provides its own domain-specific language (DSL), which is a type of programming language that is tailored to a build automation domain, and it is based on Groovy or Kotlin for describing build scripts.
 
 #### build.gradle (project)
 
-![build.gradle.kts project file](images/build_gradle_project.webp)
-
 The project-level build.gradle file is used to define global configuration and settings for the entire project.
 It is also used to implement dependencies and plugins on top level. 
 By default, all configurations and settings inside our project-level build.gradle should be inherited by all the modules in the project, 
 and build.gradle files inside modules are able to override them.
+
+![build.gradle.kts project file](images/build_gradle_project.webp)
 
 At the top, we have a optional buildscript and ext functions that are used for setting up our global values that we would like to use in build.gradle files inside our modules.
 the plugins method, which enables defining core plugins required for the project.
@@ -146,13 +146,13 @@ whereas setting it to false defers the configuration to a later stage.
 
 #### build.gradle (app)
 
-![build.gradle.kts app file](images/build_gradle_app.webp)
-
 It is used for defining the configurations and settings used for this particular module. 
 Functionality-wise, it has similar options as project-level build.gradle, but it brings a separation of concerns. 
 So all the libraries and frameworks, that we want to use in our Kotlin code that is placed inside our app module, 
 should be defined in dependencies block from this gradle file. All the plugins that are required for these 
 libraries to work should also be defined in the same gradle file.
+
+![build.gradle.kts app file](images/build_gradle_app.webp)
 
 In android function we can set The versions of minSdk, targetSdk and compileSdk, Version code and name of the app, Product flavors and build types. 
 The configurations are given below
@@ -172,15 +172,16 @@ The configurations are given below
 
 #### settings.gradle
 
-![setting.gradle.kts file](images/setting_gradle.webp)
-
 As we can see there are two main sections inside it:
 
-    1.Plugin management: The pluginManagement lambda function provides PluginManagementSpec argument which is accessible.
-    within PluginManagementSpec we can find a function called repositories that provides a RepositoryHandler argument.
-    This is the place we pass the list of our repositories where Gradle will try to find plugins and it will download the ones it finds.
-    2.Dependency resolution management: It doues the similar thing as the pluginManagement one, but it provides the list of repositories where Gradle will search
-    for dependencies that are necessary for our project.
+1. Plugin management: The pluginManagement lambda function provides PluginManagementSpec argument which is accessible.
+within PluginManagementSpec we can find a function called repositories that provides a RepositoryHandler argument.
+This is the place we pass the list of our repositories where Gradle will try to find plugins and it will download the ones it finds.
+
+2. Dependency resolution management: It doues the similar thing as the pluginManagement one, but it provides the list of repositories where Gradle will search
+for dependencies that are necessary for our project.
+
+![setting.gradle.kts file](images/setting_gradle.webp)
 
 > Dependencies: Dependencies are all those third party libraries that we can use in our Kotlin code when developing our apps.
 > Plugins: Plugins provide all the tasks (functions) that Gradle is using when building our projects. So it is basically a third party library for our gradle files.

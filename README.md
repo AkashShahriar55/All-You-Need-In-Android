@@ -8,15 +8,14 @@ This project is meticulously crafted to cover every facet of Android development
 
 ## Features
 
+- Clean Architecture
 - Modularization
-- MVVM Architecture
-- Jetpack Compose
-- Navigation Component
+- Gradle Convention Plugins
 
 <br/>
 <br/>
 
-> **_NOTE:_**  We will be discussing every topic of Android SDK in terms of [Android Jetpack](https://developer.android.com/jetpack).
+> **_NOTE:_**  We will be discussing every topic of Android SDK in terms of [Android Jetpack](https://developer.android.com/jetpack), [Kotlin](https://kotlinlang.org/).
 
 ## Architecture
 
@@ -44,7 +43,7 @@ Assign a Single Source of Truth (SSOT) to each new data type in your app. The SS
 
 
 ```kotlin
-#ViewModel.kt
+ViewModel.kt
 private val _searchQuery:MutableStateFlow<String?> = MutableStateFlow(null)
 val searchQuery = _searchQuery.asStateFlow()
 
@@ -64,7 +63,7 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 
 
 
-### Modularization
+## Modularization
 
 Modularization is a practice of organizing a codebase into loosely coupled and self contained parts. Each part is a module. 
 Each module is independent and serves a clear purpose. By dividing a problem into smaller and easier to solve subproblems, 
@@ -88,14 +87,20 @@ you reduce the complexity of designing and maintaining a large system.
 
 > #### Pitfalls 
 > Too fine-grained : Every module comes with a certain overhead due to complex build configuration . we should consider minimizing overhead by consolidating modules for better scalability and maintainability
+> 
 > Too coarse-grained : Conversely , we should maintain modularity to avoid yet another overly large modules or monolith structure
+> 
 > Too complex : Modularizing a project may not be necessary if the codebase is small and not expected to grow significantly
 
 
+## Gradle Convention Plugins
+
+Before diving into a powerful tool Gradle Convention Plugins, we will understand what is Gradle and how it works .
 
 ### Gradle
 
 Gradle is a build tool that we use for Android development to automate the process of building and publishing apps.
+An advantage of using Gradle is that it can run independently of Android Studio. You do not need Android Studio at all to generate APKs.
 Before jumping into the depth of gradle we will learn about process of compiling Android with kotlin/java code.
 
 ```
@@ -141,6 +146,30 @@ whereas setting it to false defers the configuration to a later stage.
 
 #### build.gradle (app)
 
+![build.gradle.kts app file](images/build_gradle_app.webp)
+
+It is used for defining the configurations and settings used for this particular module. 
+Functionality-wise, it has similar options as project-level build.gradle, but it brings a separation of concerns. 
+So all the libraries and frameworks, that we want to use in our Kotlin code that is placed inside our app module, 
+should be defined in dependencies block from this gradle file. All the plugins that are required for these 
+libraries to work should also be defined in the same gradle file.
+
+In android function we can set The versions of minSdk, targetSdk and compileSdk, Version code and name of the app, Product flavors and build types. 
+The configurations are given below
+
+|    Configurations    | Description                                                                                                                                                                                                                           |
+|:--------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     Build Types      | We can define build types under the buildType block, eg. debug, release, staging etc. We can configurations specific to build types here such as signingConfigs, proguard file etc.                                                   |
+|   Product Flavors    | They’re defined under the productFlavor block, eg dev, prod etc. We can define configuration specific to flavor here such as flavor specific manifest placeholders, build config fields etc                                           |
+|    Build Variants    | These are created implicitly by gradle and is a combination of build types and flavor. Ex: the above configurations will yeild devDebug, devProd, devStaging, prodDebug, prodRelease and prodStaging.                                 |
+|  Manifest Injection  | We can assign values to the AndroidManifest.xml file from gradle using manifestPlaceholder array.                                                                                                                                     |
+|     Build Config     | We can also declare certain values in a module’s gradle file which will be present as a static reference to the module after the build is done. A BuildConfig java class would be created which will hold all the build config files. |
+|     Dependencies     | You must be familiar with this. We can declare dependencies to local / remote repositories here using api or implementation keyword. They can be specific to build variants as well, ex devImplementation or prodImplementation.      |
+|       Signing        | Gradle can help automatically sign the apk during build process based on the defined configuration.                                                                                                                                   |
+|    Code Shrinking    | Gradle uses R8 to shrink and obfuscate code based on the rules specified in the proguard file.                                                                                                                                        |
+| Multiple APK Support | We can leverage gradle to create multiple APK for specific screen density etc.                                                                                                                                                        |
+
+
 #### settings.gradle
 
 ![setting.gradle.kts file](images/setting_gradle.webp)
@@ -157,6 +186,10 @@ As we can see there are two main sections inside it:
 > Plugins: Plugins provide all the tasks (functions) that Gradle is using when building our projects. So it is basically a third party library for our gradle files.
 
 
+#### Import Other Gradle Scripts
+
+![setting.gradle.kts file](images/import_other_gradle.webp)
+
 
 ## Authors
 
@@ -167,3 +200,4 @@ As we can see there are two main sections inside it:
 
 - [Process of compiling Android app with Java/Kotlin code](https://medium.com/@banmarkovic/process-of-compiling-android-app-with-java-kotlin-code-27edcfcce616)
 - [What is Gradle and why do we use it as Android developers?](https://medium.com/@banmarkovic/what-is-gradle-and-why-do-we-use-it-as-android-developers-572a07b3675d)
+- [Gradle Basics for Android Developers](https://medium.com/android-dev-corner/gradle-basics-for-android-developers-9d7a3bf062bb)

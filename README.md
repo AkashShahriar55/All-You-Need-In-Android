@@ -86,7 +86,38 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 |        Testability         |                                                           A testable code is one where components can be easily tested in isolation.                                                           | 
 |         Build time         |               incremental build, build cache or parallel build, can leverage modularity to [improve build performance](https://developer.android.com/build/optimize-your-build).               |
 
+
+
+> Too fine-grained : Every module comes with a certain overhead due to complex build configuration . we should consider minimizing overhead by consolidating modules for better scalability and maintainability
+> Too coarse-grained : Conversely , we should maintain modularity to avoid yet another overly large modules or monolith structure
+> Too complex : Modularizing a project may not be necessary if the codebase is small and not expected to grow significantly
+
+
+
+### Gradle
+
+Gradle is a build tool that we use for Android development to automate the process of building and publishing apps.
+Before jumping into the depth of gradle we will learn about process of compiling Android with kotlin/java code.
+
+```
+#### How android processes 
+
+    1. xyz.java or xyz.kt file is compiled by javac or kotlinc respectfully
+    2. javac / kotlinc compiles java/kotlin source file into java byte-code file as xyz.class
+    3. java byte code are converted into Dalvic byte-code using DX(Dex compiler) as a file named xyz.dex
+    4. DVM/ART understands Dalvic byte-code and converts it into machine code, using JIT(Just-In-Time)/AOT(Ahead-Of_Time) compiler
+    5. The machine code is then fed to the memory and executed by computer’s central processing unit.
+
+> ART (Android Runtime) — introduced with the release of Android 4.4 (Kitkat), and before it the runtime environment for Android apps was DVM.
+> ART compiles .dex files using on-device dex20at tool at its installation so that it does not compile every time app is started.
+```
+
+
 ## Authors
 
 - [Akash Shahriar](https://github.com/AkashShahriar55)
 
+
+## References
+
+- [Process of compiling Android app with Java/Kotlin code](https://medium.com/@banmarkovic/process-of-compiling-android-app-with-java-kotlin-code-27edcfcce616)

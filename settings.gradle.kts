@@ -15,3 +15,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "AllYouNeedInAndroid"
 include(":app")
+include(":data")
+include(":core")
+include(":dynamic")
+include(":feature")
+include(":test")
+include(":build-logic")
+include(":build-logic:convention")

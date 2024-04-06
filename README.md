@@ -66,10 +66,9 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 
 ### Modularization
 
-> **_Note:_** Modularization is a practice of organizing a codebase into loosely coupled and self contained parts. Each part is a module. 
-> Each module is independent and serves a clear purpose. By dividing a problem into smaller and easier to solve subproblems, 
-> you reduce the complexity of designing and maintaining a large system.
-
+Modularization is a practice of organizing a codebase into loosely coupled and self contained parts. Each part is a module. 
+Each module is independent and serves a clear purpose. By dividing a problem into smaller and easier to solve subproblems, 
+you reduce the complexity of designing and maintaining a large system.
 
 ![Sample dependency graph](https://developer.android.com/static/topic/modularization/images/1_sample_dep_graph.png)
 
@@ -87,7 +86,7 @@ UDF, combined with the SSOT principle, ensures one-way data flow in Android apps
 |         Build time         |               incremental build, build cache or parallel build, can leverage modularity to [improve build performance](https://developer.android.com/build/optimize-your-build).               |
 
 
-
+> #### Pitfalls 
 > Too fine-grained : Every module comes with a certain overhead due to complex build configuration . we should consider minimizing overhead by consolidating modules for better scalability and maintainability
 > Too coarse-grained : Conversely , we should maintain modularity to avoid yet another overly large modules or monolith structure
 > Too complex : Modularizing a project may not be necessary if the codebase is small and not expected to grow significantly
@@ -100,17 +99,63 @@ Gradle is a build tool that we use for Android development to automate the proce
 Before jumping into the depth of gradle we will learn about process of compiling Android with kotlin/java code.
 
 ```
-#### How android processes 
+How android compiling Android with Kotlin/Java code
 
     1. xyz.java or xyz.kt file is compiled by javac or kotlinc respectfully
     2. javac / kotlinc compiles java/kotlin source file into java byte-code file as xyz.class
-    3. java byte code are converted into Dalvic byte-code using DX(Dex compiler) as a file named xyz.dex
-    4. DVM/ART understands Dalvic byte-code and converts it into machine code, using JIT(Just-In-Time)/AOT(Ahead-Of_Time) compiler
+    3. java byte code are converted into Dalvic byte-code using DX(Dex compiler) as 
+       a file named xyz.dex
+    4. DVM/ART understands Dalvic byte-code and converts it into machine code, 
+       using JIT(Just-In-Time)/AOT(Ahead-Of_Time) compiler
     5. The machine code is then fed to the memory and executed by computer’s central processing unit.
 
-> ART (Android Runtime) — introduced with the release of Android 4.4 (Kitkat), and before it the runtime environment for Android apps was DVM.
-> ART compiles .dex files using on-device dex20at tool at its installation so that it does not compile every time app is started.
+ART (Android Runtime) — introduced with the release of Android 4.4 (Kitkat), and before it the runtime environment 
+for Android apps was DVM.ART compiles .dex files using on-device dex20at tool at its installation so that 
+it does not compile every time app is started.
 ```
+
+These are the general steps that happen when we press Run button:
+
+    1. Gradle reads the app’s build configuration file (build.gradle) which contains information about the dependencies, build types, etc.
+    2. Gradle downloads and resolves the app’s dependencies.
+    3. Gradle compiles the app’s code, which includes converting the Java or Kotlin code into bytecode.
+    4. After that, Gradle packs the compiled code and resources into an APK file.
+    5. Finally, Gradle installs the APK file on the device or emulator and runs the app.
+
+> It provides its own domain-specific language (DSL), which is a type of programming language that is tailored to a build automation domain, and it is based on Groovy or Kotlin for describing build scripts.
+
+#### build.gradle (project)
+
+![build.gradle.kts project file](images/build_gradle_project.webp)
+
+The project-level build.gradle file is used to define global configuration and settings for the entire project.
+It is also used to implement dependencies and plugins on top level. 
+By default, all configurations and settings inside our project-level build.gradle should be inherited by all the modules in the project, 
+and build.gradle files inside modules are able to override them.
+
+At the top, we have a optional buildscript and ext functions that are used for setting up our global values that we would like to use in build.gradle files inside our modules.
+the plugins method, which enables defining core plugins required for the project.
+The syntax for defining plugins involves using the id function to specify the plugin's package name and then setting its version.
+he apply keyword is also used to configure the plugin. When set to true, the plugin configuration is applied immediately, 
+whereas setting it to false defers the configuration to a later stage.
+
+#### build.gradle (app)
+
+#### settings.gradle
+
+![setting.gradle.kts file](images/setting_gradle.webp)
+
+As we can see there are two main sections inside it:
+
+    1.Plugin management: The pluginManagement lambda function provides PluginManagementSpec argument which is accessible.
+    within PluginManagementSpec we can find a function called repositories that provides a RepositoryHandler argument.
+    This is the place we pass the list of our repositories where Gradle will try to find plugins and it will download the ones it finds.
+    2.Dependency resolution management: It doues the similar thing as the pluginManagement one, but it provides the list of repositories where Gradle will search
+    for dependencies that are necessary for our project.
+
+> Dependencies: Dependencies are all those third party libraries that we can use in our Kotlin code when developing our apps.
+> Plugins: Plugins provide all the tasks (functions) that Gradle is using when building our projects. So it is basically a third party library for our gradle files.
+
 
 
 ## Authors
@@ -121,3 +166,4 @@ Before jumping into the depth of gradle we will learn about process of compiling
 ## References
 
 - [Process of compiling Android app with Java/Kotlin code](https://medium.com/@banmarkovic/process-of-compiling-android-app-with-java-kotlin-code-27edcfcce616)
+- [What is Gradle and why do we use it as Android developers?](https://medium.com/@banmarkovic/what-is-gradle-and-why-do-we-use-it-as-android-developers-572a07b3675d)

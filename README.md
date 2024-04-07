@@ -11,6 +11,7 @@ This project is meticulously crafted to cover every facet of Android development
 - Clean Architecture
 - Modularization
 - Gradle Convention Plugins
+- Gradle Version Catalogs
 
 <br/>
 <br/>
@@ -189,7 +190,110 @@ for dependencies that are necessary for our project.
 
 #### Import Other Gradle Scripts
 
+In multi-module projects, duplicate scripts often occur. 
+When upgrading certain settings, like the minSdk, across multiple modules, it can be tedious to manually change each one. 
+To streamline this process, common code can be extracted into a separate Gradle file (root.gradle) 
+and imported into each module's build.gradle using the "apply from" keyword.
+
 ![setting.gradle.kts file](images/import_other_gradle.webp)
+
+#### Tasks
+
+
+
+
+### Gradle Version Catalogs
+
+> Gradle version catalogs enable you to add and maintain dependencies and plugins in a scalable way. 
+> Using Gradle version catalogs makes managing dependencies and plugins easier when you have multiple modules. 
+> Instead of hardcoding dependency names and versions in individual build files and updating each entry 
+> whenever you need to upgrade a dependency, you can create a central version catalog of dependencies 
+> that various modules can reference in a type-safe way with Android Studio assistance.
+
+Before we implement gradle version catalogs,you must make sure you are using Gradle 7.4 or newer.
+
+1. The first step is we create TOML file in root gradle folder with libs.versions.toml
+   1. [versions] block, define variables that hold the versions of your dependencies and plugins.
+   2. [libraries] block, define your dependencies.
+   3. [plugins] block, define your plugins.
+   4. [bundles] block calls and functions to group libraries into a single bundle. all libraries within the bundle will be implemented in the project.
+        > for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
+        > in the catalog and allow you to create subsections. So compose-ui will be compose.ui.
+
+        ```toml
+        
+        [versions]
+        minSdk = "26"
+        targetSdk = "33"
+        compileSdk = "33"
+        versioNCode = "1"
+        versionName = "1.0.0"
+        kotlin = "1.9.0"
+        app = "8.1.0"
+        core = "1.9.0"
+        androidxComposeCompiler = "1.5.0"
+        lifecycle = "2.6.1"
+        activityCompose = "1.7.2"
+        bom = "2023.03.00"
+        appcompat = "1.6.1"
+        material = "1.9.0"
+        
+        [libraries]
+        core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
+        lifecycler = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+        activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+        compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "bom" }
+        compose-ui = { group = "androidx.compose.ui", name = "ui" }
+        compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+        compose-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+        compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+        compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+        
+        
+        android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }
+        kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+        
+        [bundles]
+        compose = [
+            "compose-ui",
+            "compose-graphics",
+            "compose-preview",
+            "compose-material3",
+            "compose-material-iconsExtended"
+        ]
+        
+        
+        [plugins]
+        kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+        application = { id = "com.android.application", version.ref = "app" }
+        library = { id = "com.android.library", version.ref = "app" }
+        
+        ``` 
+2. We have to enable version catalog by adding the below block to the settings.gradle.kts
+    ```kotlin
+    versionCatalogs {
+            create("libs") {
+                from(files("gradle/lib.versions.toml"))
+            }
+    }
+    ```
+
+3. After all setup complete we can easy call all library / plugin in our module
+
+   ```kotlin
+    plugins {
+        alias(libs.plugins.application)
+        alias(libs.plugins.kotlin)
+    }
+    dependencies {
+        implementation(libs.core.ktx)
+        implementation(libs.lifecycler)
+        implementation(libs.activity)
+
+        implementation(platform(libs.compose.bom))
+        implementation(libs.bundles.compose)
+   }
+    ```
 
 
 ## Authors
@@ -202,3 +306,5 @@ for dependencies that are necessary for our project.
 - [Process of compiling Android app with Java/Kotlin code](https://medium.com/@banmarkovic/process-of-compiling-android-app-with-java-kotlin-code-27edcfcce616)
 - [What is Gradle and why do we use it as Android developers?](https://medium.com/@banmarkovic/what-is-gradle-and-why-do-we-use-it-as-android-developers-572a07b3675d)
 - [Gradle Basics for Android Developers](https://medium.com/android-dev-corner/gradle-basics-for-android-developers-9d7a3bf062bb)
+- [Gradle Convention Plugins: A Powerful Tool for Reusing Build Configuration](https://medium.com/@yudistirosaputro/gradle-convention-plugins-a-powerful-tool-for-reusing-build-configuration-ba2b250d9063)
+- [Managing dependencies with version catalogs](https://medium.com/@yudistirosaputro/managing-dependencies-with-version-catalogs-b6c759b64411)

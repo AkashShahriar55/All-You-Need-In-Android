@@ -16,7 +16,9 @@ This project is meticulously crafted to cover every facet of Android development
 <br/>
 <br/>
 
+---
 > **_NOTE:_**  We will be discussing every topic of Android SDK in terms of [Android Jetpack](https://developer.android.com/jetpack), [Kotlin](https://kotlinlang.org/).
+---
 
 ## Architecture
 
@@ -204,21 +206,20 @@ and imported into each module's build.gradle using the "apply from" keyword.
 
 ### Gradle Version Catalogs
 
-Gradle version catalogs enable you to add and maintain dependencies and plugins in a scalable way. 
-Using Gradle version catalogs makes managing dependencies and plugins easier when you have multiple modules. 
-Instead of hardcoding dependency names and versions in individual build files and updating each entry 
-whenever you need to upgrade a dependency, you can create a central version catalog of dependencies 
-that various modules can reference in a type-safe way with Android Studio assistance.
+In an Android project, you define dependencies and their versions in the dependencies block of the build.gradle file. 
+Placing dependencies in each sub-project or module’s build file can lead to redundancy and potential conflicts in versions. 
+This can happen in multi-module projects if you define different versions in different places. 
+Therefore, you can manage dependencies in a centralized location, which is named a Version Catalog.
 
 > Before we implement gradle version catalogs,you must make sure you are using Gradle 7.4 or newer.
 
 1. The first step is we create TOML file in root gradle folder with libs.versions.toml
-   1. [versions] block, define variables that hold the versions of your dependencies and plugins.
-   2. [libraries] block, define your dependencies.
-   3. [plugins] block, define your plugins.
+   1. The [versions] section is used to declare versions, which can be referenced by dependencies.
+   2. The [libraries] section is used to declare the aliases to coordinates.
+   3. The [plugins] section is used to declare plugins.
    4. [bundles] block calls and functions to group libraries into a single bundle. all libraries within the bundle will be implemented in the project.
-   > for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
-   > in the catalog and allow you to create subsections. So compose-ui will be compose.ui.
+   **_for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
+   in the catalog and allow you to create subsections. So compose-ui will be compose.ui._**
     ```toml
             
     [versions]
@@ -239,6 +240,8 @@ that various modules can reference in a type-safe way with Android Studio assist
     
     [libraries]
     core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
+    # Another way
+    # core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
     lifecycler = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
     activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
     compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "bom" }

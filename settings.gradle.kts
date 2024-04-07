@@ -4,6 +4,7 @@
  * This is the place we pass the list of our repositories where Gradle will try to find plugins and it will download the ones it finds.
  * **/
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -30,5 +31,3 @@ include(":core")
 include(":dynamic")
 include(":feature")
 include(":test")
-include(":build-logic")
-include(":build-logic:convention")

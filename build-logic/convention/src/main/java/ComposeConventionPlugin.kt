@@ -15,7 +15,7 @@
  */
 
 import com.android.build.gradle.BaseExtension
-import com.google.samples.modularization.configureCompose
+import com.nsa.convention.configureCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

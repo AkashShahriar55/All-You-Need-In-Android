@@ -15,7 +15,7 @@
  */
 
 import com.android.build.gradle.TestExtension
-import com.google.samples.modularization.configureAndroid
+import com.nsa.convention.configureAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension

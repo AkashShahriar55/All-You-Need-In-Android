@@ -18,7 +18,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.google.samples.modularization.buildlogic"
+group = "com.nsa.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

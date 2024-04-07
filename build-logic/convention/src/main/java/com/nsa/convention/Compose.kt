@@ -1,4 +1,4 @@
-package com.google.samples.modularization
+package com.nsa.convention
 
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Project

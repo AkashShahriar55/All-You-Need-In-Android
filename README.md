@@ -96,11 +96,11 @@ you reduce the complexity of designing and maintaining a large system.
 > Too complex : Modularizing a project may not be necessary if the codebase is small and not expected to grow significantly
 
 
-## Gradle Convention Plugins
+---
+> Before diving into a powerful tool Gradle Convention Plugins, we will understand what is Gradle and how it works .
+---
 
-Before diving into a powerful tool Gradle Convention Plugins, we will understand what is Gradle and how it works .
-
-### Gradle
+## Gradle
 
 Gradle is a build tool that we use for Android development to automate the process of building and publishing apps.
 An advantage of using Gradle is that it can run independently of Android Studio. You do not need Android Studio at all to generate APKs.
@@ -214,14 +214,14 @@ Therefore, you can manage dependencies in a centralized location, which is named
 > Before we implement gradle version catalogs,you must make sure you are using Gradle 7.4 or newer.
 
 1. The first step is we create TOML file in root gradle folder with libs.versions.toml
-   1. The [versions] section is used to declare versions, which can be referenced by dependencies.
-   2. The [libraries] section is used to declare the aliases to coordinates.
-   3. The [plugins] section is used to declare plugins.
-   4. [bundles] block calls and functions to group libraries into a single bundle. all libraries within the bundle will be implemented in the project.
-   **_for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
-   in the catalog and allow you to create subsections. So compose-ui will be compose.ui._**
     ```toml
-            
+    # The [versions] section is used to declare versions, which can be referenced by dependencies.
+    # The [libraries] section is used to declare the aliases to coordinates.
+    # The [plugins] section is used to declare plugins.
+    # [bundles] block calls and functions to group libraries into a single bundle. all libraries within the bundle will be implemented in the project.
+   
+    # for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
+    # in the catalog and allow you to create subsections. So compose-ui will be compose.ui.
     [versions]
     minSdk = "26"
     targetSdk = "33"
@@ -297,6 +297,14 @@ Therefore, you can manage dependencies in a centralized location, which is named
    }
     ```
 
+## Gradle Convention Plugins
+
+Gradle convention plugins are a powerful tool for reusing build configuration. 
+They allow you to define a set of conventions for a project or module, 
+and then apply those conventions to other projects or modules. 
+This can greatly simplify build management and increase efficiency.
+
+![Migrate to Gradle version catalog and convention plugins - DevFest Triveneto 2022](https://www.youtube.com/watch?v=cNypb-kIwZg&t=2374s&ab_channel=GDGVenezia)
 
 ## Authors
 

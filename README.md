@@ -304,7 +304,8 @@ They allow you to define a set of conventions for a project or module,
 and then apply those conventions to other projects or modules. 
 This can greatly simplify build management and increase efficiency.
 
-![Migrate to Gradle version catalog and convention plugins - DevFest Triveneto 2022](https://www.youtube.com/watch?v=cNypb-kIwZg&t=2374s&ab_channel=GDGVenezia)
+[![Migrate to Gradle version catalog and convention plugins](https://i.ytimg.com/vi/cNypb-kIwZg&t=2374s/maxresdefault.jpg)](https://www.youtube.com/watch?v=cNypb-kIwZg&t=2374s&ab_channel=GDGVenezia "Now in Android: 55")
+
 
 ## Authors
 

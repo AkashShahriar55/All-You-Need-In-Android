@@ -217,8 +217,8 @@ Before we implement gradle version catalogs,you must make sure you are using Gra
    2. [libraries] block, define your dependencies.
    3. [plugins] block, define your plugins.
    4. [bundles] block calls and functions to group libraries into a single bundle. all libraries within the bundle will be implemented in the project.
-        > for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
-        > in the catalog and allow you to create subsections. So compose-ui will be compose.ui.
+   > for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
+   > in the catalog and allow you to create subsections. So compose-ui will be compose.ui.
     ```toml
             
     [versions]

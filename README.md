@@ -204,13 +204,13 @@ and imported into each module's build.gradle using the "apply from" keyword.
 
 ### Gradle Version Catalogs
 
-> Gradle version catalogs enable you to add and maintain dependencies and plugins in a scalable way. 
-> Using Gradle version catalogs makes managing dependencies and plugins easier when you have multiple modules. 
-> Instead of hardcoding dependency names and versions in individual build files and updating each entry 
-> whenever you need to upgrade a dependency, you can create a central version catalog of dependencies 
-> that various modules can reference in a type-safe way with Android Studio assistance.
+Gradle version catalogs enable you to add and maintain dependencies and plugins in a scalable way. 
+Using Gradle version catalogs makes managing dependencies and plugins easier when you have multiple modules. 
+Instead of hardcoding dependency names and versions in individual build files and updating each entry 
+whenever you need to upgrade a dependency, you can create a central version catalog of dependencies 
+that various modules can reference in a type-safe way with Android Studio assistance.
 
-Before we implement gradle version catalogs,you must make sure you are using Gradle 7.4 or newer.
+> Before we implement gradle version catalogs,you must make sure you are using Gradle 7.4 or newer.
 
 1. The first step is we create TOML file in root gradle folder with libs.versions.toml
    1. [versions] block, define variables that hold the versions of your dependencies and plugins.

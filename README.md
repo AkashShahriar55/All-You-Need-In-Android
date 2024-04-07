@@ -307,6 +307,7 @@ This can greatly simplify build management and increase efficiency.
 [![Migrate to Gradle version catalog and convention plugins](images/migrate_to_convention_cataog.jpg)](https://www.youtube.com/watch?v=cNypb-kIwZg&t=2374s&ab_channel=GDGVenezia "Now in Android: 55")
 
 
+
 ## Authors
 
 - [Akash Shahriar](https://github.com/AkashShahriar55)

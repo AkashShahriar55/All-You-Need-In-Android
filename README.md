@@ -219,56 +219,55 @@ Before we implement gradle version catalogs,you must make sure you are using Gra
    4. [bundles] block calls and functions to group libraries into a single bundle. all libraries within the bundle will be implemented in the project.
         > for the naming in toml you can use separators such as -, _, . that will be normalized by Gradle to . 
         > in the catalog and allow you to create subsections. So compose-ui will be compose.ui.
-
-        ```toml
-        
-        [versions]
-        minSdk = "26"
-        targetSdk = "33"
-        compileSdk = "33"
-        versioNCode = "1"
-        versionName = "1.0.0"
-        kotlin = "1.9.0"
-        app = "8.1.0"
-        core = "1.9.0"
-        androidxComposeCompiler = "1.5.0"
-        lifecycle = "2.6.1"
-        activityCompose = "1.7.2"
-        bom = "2023.03.00"
-        appcompat = "1.6.1"
-        material = "1.9.0"
-        
-        [libraries]
-        core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
-        lifecycler = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-        activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-        compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "bom" }
-        compose-ui = { group = "androidx.compose.ui", name = "ui" }
-        compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-        compose-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-        compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
-        compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-        
-        
-        android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }
-        kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-        
-        [bundles]
-        compose = [
-            "compose-ui",
-            "compose-graphics",
-            "compose-preview",
-            "compose-material3",
-            "compose-material-iconsExtended"
-        ]
-        
-        
-        [plugins]
-        kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-        application = { id = "com.android.application", version.ref = "app" }
-        library = { id = "com.android.library", version.ref = "app" }
-        
-        ``` 
+    ```toml
+            
+    [versions]
+    minSdk = "26"
+    targetSdk = "33"
+    compileSdk = "33"
+    versioNCode = "1"
+    versionName = "1.0.0"
+    kotlin = "1.9.0"
+    app = "8.1.0"
+    core = "1.9.0"
+    androidxComposeCompiler = "1.5.0"
+    lifecycle = "2.6.1"
+    activityCompose = "1.7.2"
+    bom = "2023.03.00"
+    appcompat = "1.6.1"
+    material = "1.9.0"
+    
+    [libraries]
+    core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
+    lifecycler = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+    activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+    compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "bom" }
+    compose-ui = { group = "androidx.compose.ui", name = "ui" }
+    compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+    compose-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+    compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+    compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+    
+    
+    android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }
+    kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+    
+    [bundles]
+    compose = [
+        "compose-ui",
+        "compose-graphics",
+        "compose-preview",
+        "compose-material3",
+        "compose-material-iconsExtended"
+    ]
+    
+    
+    [plugins]
+    kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+    application = { id = "com.android.application", version.ref = "app" }
+    library = { id = "com.android.library", version.ref = "app" }
+            
+    ``` 
 2. We have to enable version catalog by adding the below block to the settings.gradle.kts
     ```kotlin
     versionCatalogs {
